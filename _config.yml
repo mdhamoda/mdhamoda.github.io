@@ -1,3 +1,4 @@
 title: SES Documentation
 description: Automatically generated Apex documentation.
-theme: minima
+theme: default
+logo: "https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg"
