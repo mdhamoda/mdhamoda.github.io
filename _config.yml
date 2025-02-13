@@ -1,3 +1,6 @@
 title: "<a href='/index.html'>SES Documentation</a>"
 description: Automatically generated Apex documentation.
 theme: jekyll-theme-cayman
+
+
+show_glossary: true
