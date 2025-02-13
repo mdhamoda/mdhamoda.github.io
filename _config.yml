@@ -1,7 +1,4 @@
 title: SES Documentation
 description: Automatically generated Apex documentation.
 theme: minima
-plugins:
-  - jekyll-feed
-  - jekyll-redirect-from
 
