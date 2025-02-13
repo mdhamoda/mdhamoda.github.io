@@ -1,4 +1,7 @@
 title: SES Documentation
 description: Automatically generated Apex documentation.
 theme: minima
-logo: "https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg"
+plugins:
+  - jekyll-feed
+  - jekyll-redirect-from
+
