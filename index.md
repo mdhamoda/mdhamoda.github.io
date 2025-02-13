@@ -4,6 +4,6 @@ title: SES Documentation
 ---
 # Apex Class
 
-- [GetBaseURLTest.md](GetBaseURLTest.md)
+- [GetBaseURLTest](GetBaseURLTest.md)
 - 
 
