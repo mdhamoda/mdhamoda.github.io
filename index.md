@@ -1,3 +1,4 @@
+# Home
 ---
 layout: default
 title: SES Documentation
