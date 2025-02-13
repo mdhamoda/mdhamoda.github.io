@@ -2,4 +2,5 @@ title: SES Documentation
 description: Automatically generated Apex documentation.
 theme: minima
 remote_theme: jekyll/minima
+  skin: classic
 
