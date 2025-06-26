@@ -1,8 +1,8 @@
 # Reference Guide
 
-### [CarrierAPI](miscellaneous\CarrierAPI.md)
+### [CarrierAPI](miscellaneous/CarrierAPI.md)
 
-### [GetShipmentStatusAPI](miscellaneous\GetShipmentStatusAPI.md)
+### [GetShipmentStatusAPI](miscellaneous/GetShipmentStatusAPI.md)
 
 ## :
 
@@ -12,7 +12,7 @@
 
 ## : LogisticsApp
 
-### [ShipmentStatusBatchSchedule](logisticsapp\ShipmentStatusBatchSchedule.md)
+### [ShipmentStatusBatchSchedule](logisticsapp/ShipmentStatusBatchSchedule.md)
 
 : 
 This class is responsible for scheduling the ShipmentStatusBatch to run periodically. 
@@ -21,40 +21,40 @@ The batch can be scheduled using a cron expression to run at specific intervals.
 
 ## : Shipment Management
 
-### [ShipmentStatusBatch](shipment-management\ShipmentStatusBatch.md)
+### [ShipmentStatusBatch](shipment-management/ShipmentStatusBatch.md)
 
 Batch class to manage shipment status updates
 
 ## Custom Objects
 
-### [ShipmentRegionOwnership__mdt](custom-objects\ShipmentRegionOwnership__mdt.md)
+### [ShipmentRegionOwnership__mdt](custom-objects/ShipmentRegionOwnership__mdt.md)
 
-### [ShipmentRequestEvent__e](custom-objects\ShipmentRequestEvent__e.md)
+### [ShipmentRequestEvent__e](custom-objects/ShipmentRequestEvent__e.md)
 
-### [ShipmentRequest__c](custom-objects\ShipmentRequest__c.md)
+### [ShipmentRequest__c](custom-objects/ShipmentRequest__c.md)
 
-### [DispatchCarrier__c](custom-objects\DispatchCarrier__c.md)
+### [DispatchCarrier__c](custom-objects/DispatchCarrier__c.md)
 
 ## ShipmentDispatchApp
 
-### [DispatchStatusUpdaterScheduler](shipmentdispatchapp\DispatchStatusUpdaterScheduler.md)
+### [DispatchStatusUpdaterScheduler](shipmentdispatchapp/DispatchStatusUpdaterScheduler.md)
 
 :
 
-### [GetShipmentStatusAPI](shipmentdispatchapp\GetShipmentStatusAPI.md)
+### [GetShipmentStatusAPI](shipmentdispatchapp/GetShipmentStatusAPI.md)
 
 : Shipment status polling API from Org A to Org B
 
 ## ShipmentDispatchApp
 Last Modified on: 2025-06-26
 
-### [CarrierAPI](shipmentdispatchapp-last-modified-on-2025-06-26\CarrierAPI.md)
+### [CarrierAPI](shipmentdispatchapp-last-modified-on-2025-06-26/CarrierAPI.md)
 
 :
 
 ## Triggers
 
-### [ShipmentRequestTrigger](triggers\ShipmentRequestTrigger.md)
+### [ShipmentRequestTrigger](triggers/ShipmentRequestTrigger.md)
 
 : 
 This trigger handles the ShipmentRequest__c object lifecycle events. 
