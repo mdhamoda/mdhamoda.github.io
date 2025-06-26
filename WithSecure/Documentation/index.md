@@ -227,6 +227,8 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 
 # 🔄 Integration Architecture: Salesforce Org A (Logistica) ↔ Org B (Dispatch Carriers)
 
+![SequenceDiagram](https://github.com/user-attachments/assets/67719782-65cc-4de1-819e-39864ffe2dc8)
+![SequenceDiagram](https://github.com/user-attachments/assets/67719782-65cc-4de1-819e-39864ffe2dc8)
 
 
 
