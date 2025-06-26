@@ -93,21 +93,21 @@ Create a connected App, "LogisticaApp" in Org B. This app will be used for OAuth
 Details steps will be added her for creating connected app.The connected app will use digital signatures and connect using certificate provided(or retrieved from Org A). Copy the consumer key. thi consumer key has to updated in the Org A named credential/External credential
 
 ### Run the command
-sf project deploy start --source-dir force-app
+  sf project deploy start --source-dir force-app
 
-Copy LogisticsApp folder to VS code for Org A
-Run the command
-sf project deploy start --source-dir force-app
+- Copy LogisticsApp folder to VS code for Org A
+- Run the command
+- sf project deploy start --source-dir force-app
 
 ### Post deployment
 As a admin in Org A
-Update the named credential consumer key from Org B
-Activate the flow, "Reset Shipmet Status"
-Please schedule a batch job that updates shipment status to Dispatched or Dispatch failed by polling Org B
-Create a user with profile Logistica Customer Service and add permission Set, LogisticaAppPermission
-Login as the new test user and start testing.
+- Update the named credential consumer key from Org B
+- Activate the flow, "Reset Shipmet Status"
+- Please schedule a batch job that updates shipment status to Dispatched or Dispatch failed by polling Org B
+- Create a user with profile Logistica Customer Service and add permission Set, LogisticaAppPermission
+- Login as the new test user and start testing.
 
 As a admin in Org B
-Please schedule a batch job that updates shipment status to Dispatched or Dispatch failed fro Dispatch Carrier records
+- Please schedule a batch job that updates shipment status to Dispatched or Dispatch failed fro Dispatch Carrier records
 ## 
 
