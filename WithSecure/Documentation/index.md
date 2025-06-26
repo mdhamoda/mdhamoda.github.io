@@ -10,7 +10,7 @@ A Salesforce Lightning Web Component (LWC) that displays shipment requests in a 
 - Dispatch functionality with validations
 - Record creation and deletion via modal
 - Lightning styling with SLDS
-*[*Also checkout- Html documentation](WithSecure/LogisticsApp/apex-documentation/CarrierDispatchService.html)** 
+*[*Also checkout- Html documentation](LogisticsApp/apex-documentation/CarrierDispatchService.html)** 
 ### [CarrierAPI](miscellaneous/CarrierAPI.md)
 CarrierAPI- This Apex REST service processes carrier dispatch shipment requests.&lt;br/&gt; 
 Accepts a single shipment request and creates or updates a DispatchCarrier__c record.&lt;br/&gt; 
