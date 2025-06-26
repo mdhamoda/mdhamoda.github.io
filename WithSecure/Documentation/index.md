@@ -219,7 +219,8 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 
 ---
 
-## 📁 Sequence
+
+
 
 
 +-------------------+                        +-----------------------+
@@ -231,9 +232,9 @@ A Lightning App providing agents with a real-time interface for managing shipmen
          | 1. Shipment Created                           |
          |                                               |
          |                                               |
-         | - Status: Assigned to Agent                   |
-         | - Region mapped from Destination              |
-         | - Owner mapped from Region                    |
+         |  Status: Assigned to Agent                    |
+         |  Region mapped from Destination               |
+         |  Owner mapped from Region                     |
          |                                               |
          v                                               v
 +-------------------------+                      +-------------------------+
@@ -243,7 +244,7 @@ A Lightning App providing agents with a real-time interface for managing shipmen
          |                                                  |
          | 2. Agent Reviews record with a action            |
          |    Status changed to 'In Review'                 |
-         | - Locked for others (server-side validation)     |
+         |  Locked for others (server-side validation)     |
          | Agent updates'ready For Dispatch'                |
          v                                                  |
 +------------------------------+                            |
