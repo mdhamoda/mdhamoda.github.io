@@ -220,30 +220,31 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 ---
 
 ## 📁 Sequence
+
+
 +-------------------+                        +-----------------------+
 |    Salesforce     |                        |     Salesforce        |
 |     Org A         |                        |       Org B           |
 | (Logistica App)   |                        |  (Dispatch Carriers)  |
 +-------------------+                        +-----------------------+
-         |                                              |
+         |                                               |
          | 1. Shipment Created                           |
-         | 
-         |                                              |
-         | - Status: Assigned to Agent                 |
-         | - Region mapped from Destination            |
-         | - Owner mapped from Region                  |
-         |                                              |
-         v                                              v
-
+         |                                               |
+         |                                               |
+         | - Status: Assigned to Agent                   |
+         | - Region mapped from Destination              |
+         | - Owner mapped from Region                    |
+         |                                               |
+         v                                               v
 +-------------------------+                      +-------------------------+
-|  Logistica Customer     |                      |  Org B Dispatch System   |
+|  Logistica Customer     |                      |  Org B Dispatch System  |
 |  opens Shipment Record  |                      +-------------------------+
 +-------------------------+                                 |
          |                                                  |
          | 2. Agent Reviews record with a action            |
          |    Status changed to 'In Review'                 |
          | - Locked for others (server-side validation)     |
-         | Agent updates'ready For Dispatch'               |
+         | Agent updates'ready For Dispatch'                |
          v                                                  |
 +------------------------------+                            |
 | Shipment marked Ready        |                            |
@@ -272,8 +273,8 @@ A Lightning App providing agents with a real-time interface for managing shipmen
          |
          | 6. Platform Event: `ShipmentRequestEvent__e`
          |-----------------------------------------------------------+
-         | Triggers in Org A for any field change on Shipment       |
-         | - Logistica App LWC subscribed                           |
+         | Triggers in Org A for any field change on Shipment        |
+         | - Logistica App LWC subscribed                            |
          +-----------------------------------------------------------+
 
          |
@@ -282,7 +283,7 @@ A Lightning App providing agents with a real-time interface for managing shipmen
          | - Delete Shipment
          v
 +-------------------------------+
-| Logistica Shipment Datatable |
-| LWC: Create / Delete / Track |
+| Logistica Shipment Datatable  |
+| LWC: Create / Delete / Track  |
 +-------------------------------+
 
