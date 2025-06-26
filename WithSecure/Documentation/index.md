@@ -86,7 +86,6 @@ This trigger is part of a larger Salesforce application that manages shipment re
 
 
 ### Copy LogisticsApp folder to VS code for Org B
-### Copy LogisticsApp folder to VS code for Org B
 ### Copy ShipmentDispatchApp folder to VS code for Org B
 ### Pre Deployment steps:
 - Create a certificate in Org A called, "CarrierAPI" or upload the one in asset folder to Org A. If you have created one, download for using in the connected app in Org B
