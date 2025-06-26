@@ -227,70 +227,66 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 
 # 🔄 Integration Architecture: Salesforce Org A (Logistica) ↔ Org B (Dispatch Carriers)
 
-
------------------------------------------------------------------------------------------------
-
-+-------------------+                        +-----------------------+
-|    Salesforce     |                        |     Salesforce        |
-|     Org A         |                        |       Org B           |
-| (Logistica App)   |                        |  (Dispatch Carriers)  |
-+-------------------+                        +-----------------------+
-         |                                               |
-         | 1. Shipment Created                           |
-         |                                               |
-         |  Status: Assigned to Agent                    |
-         |  Region mapped from Destination               |
-         |  Owner mapped from Region                     |
-         |                                               |
-         v                                               v
-+-------------------------+                      +-------------------------+
-|  Logistica Customer     |                      |  Org B Dispatch System  |
-|  opens Shipment Record  |                      +-------------------------+
-+-------------------------+                                 |
-         |                                                  |
-         | 2. Agent Reviews record with a action            |
-         |    Status changed to 'In Review'                 |
-         |  Locked for others (server-side validation)     |
-         | Agent updates 'Ready For Dispatch'               |
-         v                                                  |
-+------------------------------+                            |
-| Shipment marked Ready        |                            |
-| for Dispatch (by CSR)        |                            |
-+------------------------------+                            |
-         |                                                  |
-         | 3. User clicks "Dispatch" (OAuth + Callout)      |
-         |------------------------------------------------->|
-         |  Synchronous                                     |
-         | - Org A: Status = Dispatching                    |
-         | - Org B: Dispatch Carrier created                |
-         |   Status = Dispatching                           |
-         |                                                  |
-         | [If integration fails: Status = Dispatch Failed] |
-         |                                                  |
-         v                                                  v
-+---------------------+    Asynchronous       +---------------------+
-| 5. Batch Job (Org A) | <-------------------  | 4. Status updates in  |
-| Polls Org B for     |                       | Org B:               |
-| Dispatching records |                       | - Dispatched         |
-| to Dispatched or    |                       | - Dispatch Failed    |
-| Dispatch Failed     |                       |                      |
-+---------------------+                       +---------------------+
-
-         |
-         | 6. Platform Event: `ShipmentRequestEvent__e`
-         |-----------------------------------------------------------+
-         | Triggers in Org A for any field change on Shipment        |
-         | - Logistica App LWC subscribed                            |
-         +-----------------------------------------------------------+
-
-         |
-         | 7. Users can also:
-         | - Create Shipment via Modal
-         | - Delete Shipment
-         v
-+-------------------------------+
-| Logistica Shipment Datatable  |
-| LWC: Create / Delete / Track  |
-+-------------------------------+
-
-
++-------------------+                        +-----------------------+       
+|    Salesforce     |                        |     Salesforce        |       
+|     Org A         |                        |       Org B           |       
+| (Logistica App)   |                        |  (Dispatch Carriers)  |       
++-------------------+                        +-----------------------+       
+         |                                               |                   
+         | 1. Shipment Created                           |                   
+         |                                               |                   
+         |  Status: Assigned to Agent                    |                   
+         |  Region mapped from Destination               |                   
+         |  Owner mapped from Region                     |                   
+         |                                               |                   
+         v                                               v                   
++-------------------------+                      +-------------------------+ 
+|  Logistica Customer     |                      |  Org B Dispatch System  | 
+|  opens Shipment Record  |                      +-------------------------+ 
++-------------------------+                                 |                
+         |                                                  |                
+         | 2. Agent Reviews record with a action            |                
+         |    Status changed to 'In Review'                 |                
+         |  Locked for others (server-side validation)     |                 
+         | Agent updates 'Ready For Dispatch'               |                
+         v                                                  |                
++------------------------------+                            |                
+| Shipment marked Ready        |                            |                
+| for Dispatch (by CSR)        |                            |                
++------------------------------+                            |                
+         |                                                  |                
+         | 3. User clicks "Dispatch" (OAuth + Callout)      |                
+         |------------------------------------------------->|                
+         |  Synchronous                                     |                
+         | - Org A: Status = Dispatching                    |                
+         | - Org B: Dispatch Carrier created                |                
+         |   Status = Dispatching                           |                
+         |                                                  |                
+         | [If integration fails: Status = Dispatch Failed] |                
+         |                                                  |                
+         v                                                  v                
+                                                                             
++---------------------+    Asynchronous       +---------------------+        
+| 5. Batch Job (Org A) | <-------------------  | 4. Status updates in  |     
+| Polls Org B for     |                       | Org B:               |       
+| Dispatching records |                       | - Dispatched         |       
+| to Dispatched or    |                       | - Dispatch Failed    |       
+| Dispatch Failed     |                       |                      |       
++---------------------+                       +---------------------+        
+                                                                             
+         |                                                                   
+         | 6. Platform Event: `ShipmentRequestEvent__e`                      
+         |-----------------------------------------------------------+       
+         | Triggers in Org A for any field change on Shipment        |       
+         | - Logistica App LWC subscribed                            |       
+         +-----------------------------------------------------------+       
+                                                                             
+         |                                                                   
+         | 7. Users can also:                                                
+         | - Create Shipment via Modal                                       
+         | - Delete Shipment                                                 
+         v                                                                   
++-------------------------------+                                            
+| Logistica Shipment Datatable  |                                            
+| LWC: Create / Delete / Track  |                                            
++-------------------------------+                                            
