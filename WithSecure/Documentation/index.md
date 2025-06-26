@@ -223,6 +223,10 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 
 
 
+
+
+# 🔄 Integration Architecture: Salesforce Org A (Logistica) ↔ Org B (Dispatch Carriers)
+
 +-------------------+                        +-----------------------+
 |    Salesforce     |                        |     Salesforce        |
 |     Org A         |                        |       Org B           |
@@ -230,7 +234,6 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 +-------------------+                        +-----------------------+
          |                                               |
          | 1. Shipment Created                           |
-         |                                               |
          |                                               |
          |  Status: Assigned to Agent                    |
          |  Region mapped from Destination               |
@@ -245,7 +248,7 @@ A Lightning App providing agents with a real-time interface for managing shipmen
          | 2. Agent Reviews record with a action            |
          |    Status changed to 'In Review'                 |
          |  Locked for others (server-side validation)     |
-         | Agent updates'ready For Dispatch'                |
+         | Agent updates 'Ready For Dispatch'               |
          v                                                  |
 +------------------------------+                            |
 | Shipment marked Ready        |                            |
@@ -253,7 +256,7 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 +------------------------------+                            |
          |                                                  |
          | 3. User clicks "Dispatch" (OAuth + Callout)      |
-         |------------------------------------------------> |
+         |------------------------------------------------->|
          |  Synchronous                                     |
          | - Org A: Status = Dispatching                    |
          | - Org B: Dispatch Carrier created                |
@@ -264,11 +267,11 @@ A Lightning App providing agents with a real-time interface for managing shipmen
          v                                                  v
 
 +---------------------+    Asynchronous       +---------------------+
-|5 Batch Job (Org A)  | <-------------------  | 4.Status updates in  |
+| 5. Batch Job (Org A) | <-------------------  | 4. Status updates in  |
 | Polls Org B for     |                       | Org B:               |
 | Dispatching records |                       | - Dispatched         |
-| to Dispatchedor     |                       | - Dispatch Failed    |
-| to Dispatch Failed  |                       |                      |
+| to Dispatched or    |                       | - Dispatch Failed    |
+| Dispatch Failed     |                       |                      |
 +---------------------+                       +---------------------+
 
          |
@@ -288,27 +291,4 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 | LWC: Create / Delete / Track  |
 +-------------------------------+
 
-
-# 🔄 Integration Architecture: Salesforce Org A (Logistica) ↔ Org B (Dispatch Carriers)
-
-sequenceDiagram
-    participant OrgA as Salesforce Org A (Logistica App)
-    participant OrgB as Salesforce Org B (Dispatch Carriers)
-
-    OrgA->>OrgA: 1. Create Shipment\nStatus: Assigned to Agent\nRegion & Owner set
-    OrgA->>OrgA: 2. Agent Reviews\nStatus: In Review\nRecord Locked\nReady for Dispatch
-    OrgA->>OrgB: 3. Dispatch Clicked\nOAuth + Callout\nStatus: Dispatching
-    OrgB->>OrgB: Create Dispatch Carrier Record\nStatus: Dispatching
-    alt If callout fails
-        OrgB-->>OrgA: Dispatch Failed
-        OrgA->>OrgA: Update Status: Dispatch Failed
-    end
-    loop Batch Job Polling
-        OrgA->>OrgB: Poll for Dispatch Status
-        OrgB-->>OrgA: Return Status (Dispatched or Failed)
-        OrgA->>OrgA: Update Shipment Status
-    end
-    OrgA->>OrgA: 5. Platform Event Fired\nShipmentRequestEvent__e
-    OrgA->>User: UI Updates via LWC subscription
-    User->>OrgA: 6. Create/Delete/Track Shipments via LWC
 
