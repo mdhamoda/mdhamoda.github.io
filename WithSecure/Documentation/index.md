@@ -100,7 +100,8 @@ The lWC does not include pagination/slicing due to time constraints.
 - Create a certificate in Org A called, "CarrierAPI" or upload the one in asset folder to Org A. If you have created one, download for using in the connected app in Org B
 In Org B create a system administrator user with username , withsecurelogisticaapp@testorg123.com. This user is needed in the connected app.
 Create a connected App, "LogisticaApp" in Org B. This app will be used for OAuth by Org B.
-Details steps will be added her for creating connected app.The connected app will use digital signatures and connect using certificate provided(or retrieved from Org A). Copy the consumer key. thi consumer key has to updated in the Org A named credential/External credential
+Details steps will be added her for creating connected app.The connected app will use digital signatures and connect using certificate provided(or retrieved from Org A). Copy the consumer key. this consumer key has to updated in the Org A named credential/External credential
+[How to Connected App](\ConnectedAppSteps)
 
 ### Run the command separately for Org A and Org B
   sf project deploy start --source-dir force-app
