@@ -111,3 +111,178 @@ As a admin in Org B
 - Please schedule a batch job that updates shipment status to Dispatched or Dispatch failed fro Dispatch Carrier records
 ## 
 
+
+
+# 🚚 Logistica – Salesforce-Native Logistics Management Centre
+
+Logistica is a scalable, asynchronous, and integration-heavy Salesforce-native logistics orchestration solution designed to handle global shipment operations. It coordinates requests from external Salesforce orgs, routes them to agents by region, and dispatches them to carrier systems.
+
+## 🌐 Architecture Overview
+
+This system spans two Salesforce developer orgs:
+
+- **Org A – Logistica (Logistics Management Centre)**
+- **Org B – Carrier Org (External Shipment Processor)**
+
+![Architecture Diagram](./assets/architecture-diagram.png) <!-- Include an actual diagram if available -->
+
+---
+
+## 🔧 Core Components
+
+### 1. ShipmentRequest__c Object (Org A)
+
+Custom object that captures shipment details:
+- **Fields**: Origin__c, Destination__c, Carrier__c, Status__c, Tracking_ID__c, Estimated_Delivery__c
+
+### 2. Region-Based Routing
+
+- Shipments are automatically routed to agents based on the `Destination__c` country, which is mapped to regions (EMEA, Africa, Asia, Europe, US, LATAM).
+
+---
+
+## 🧭 Logistica App (Org A)
+
+A Lightning App providing agents with a real-time interface for managing shipment requests.
+
+### Features:
+
+- Lightning App Page with a custom **LWC Datatable**
+- Real-time updates via **Platform Events** or **Lightning Message Service**
+- Region-based filtering of visible shipment requests
+
+---
+
+## 📊 Datatable Specifications
+
+| Column                    | Description                        |
+|--------------------------|------------------------------------|
+| ShipmentRequest Number   | Auto-number for tracking           |
+| Destination__c           | Destination country                |
+| Carrier__c               | Assigned carrier                   |
+| Status__c                | Shipment status                    |
+| Tracking_ID__c           | External tracking reference        |
+| Estimated_Delivery__c    | Expected delivery date             |
+
+### Row Behaviors
+
+- **In Review**: Highlighted **yellow**, with icon
+- **Assigned to Agent**: Highlighted **green**
+- **Real-time status updates** for all agents
+
+---
+
+## 🧩 Functional Capabilities
+
+- **View & Edit** assigned shipment records
+- **Status transitions**:
+  - Assigned → In Review (on record open)
+  - In Review → Ready for Dispatch (after verification)
+  - Dispatch Failed → Ready for Dispatch (retry)
+- **Conflict Detection**:
+  - Detects and prevents concurrent agent edits
+- **Trigger Dispatch**:
+  - Sends a POST request to Org B `/CarrierAPI` endpoint
+- **Release In Review**:
+  - Manually release record if verification isn't completed within 5 minutes
+
+---
+
+## 🔗 Carrier API Integration (Org B)
+
+- **/CarrierAPI**: Accepts shipment dispatch requests
+- **Dispatch Status Polling API**: Allows Org A to check shipment status
+- **Batch Job**: Runs every 10 minutes to update statuses (Dispatched or Dispatch Failed)
+
+---
+
+## 🔐 Integration & Resilience
+
+- **OAuth 2.0** authentication from Org A → Org B
+- Simulated:
+  - Rate limiting
+  - API timeouts & retry logic
+  - Latency
+- API is intentionally **not bulkified**
+
+---
+
+## ✅ Testing Strategy
+
+- **93%+ code coverage** for Career Dispatch service
+- **Unit Testing**:
+  - Success and Failure test methods are included
+- **Tools Used**:
+  - `HttpCalloutMock` is used to mimic respose data for Carrier API
+  - `Test.startTest()` / `stopTest()`
+  - Platform Event mocking
+
+---
+
+## 📁 Sequence
++-------------------+                        +-----------------------+
+|    Salesforce     |                        |     Salesforce        |
+|     Org A         |                        |       Org B           |
+| (Logistica App)   |                        |  (Dispatch Carriers)  |
++-------------------+                        +-----------------------+
+         |                                              |
+         | 1. Shipment Created                           |
+         | 
+         |                                              |
+         | - Status: Assigned to Agent                 |
+         | - Region mapped from Destination            |
+         | - Owner mapped from Region                  |
+         |                                              |
+         v                                              v
+
++-------------------------+                      +-------------------------+
+|  Logistica Customer     |                      |  Org B Dispatch System   |
+|  opens Shipment Record  |                      +-------------------------+
++-------------------------+                                 |
+         |                                                  |
+         | 2. Agent Reviews record with a action            |
+         |    Status changed to 'In Review'                 |
+         | - Locked for others (server-side validation)     |
+         | Agent updates'ready For Dispatch'               |
+         v                                                  |
++------------------------------+                            |
+| Shipment marked Ready        |                            |
+| for Dispatch (by CSR)        |                            |
++------------------------------+                            |
+         |                                                  |
+         | 3. User clicks "Dispatch" (OAuth + Callout)      |
+         |------------------------------------------------> |
+         |  Synchronous                                     |
+         | - Org A: Status = Dispatching                    |
+         | - Org B: Dispatch Carrier created                |
+         |   Status = Dispatching                           |
+         |                                                  |
+         | [If integration fails: Status = Dispatch Failed] |
+         |                                                  |
+         v                                                  v
+
++---------------------+    Asynchronous       +---------------------+
+|5 Batch Job (Org A)  | <-------------------  | 4.Status updates in  |
+| Polls Org B for     |                       | Org B:               |
+| Dispatching records |                       | - Dispatched         |
+| to Dispatchedor     |                       | - Dispatch Failed    |
+| to Dispatch Failed  |                       |                      |
++---------------------+                       +---------------------+
+
+         |
+         | 6. Platform Event: `ShipmentRequestEvent__e`
+         |-----------------------------------------------------------+
+         | Triggers in Org A for any field change on Shipment       |
+         | - Logistica App LWC subscribed                           |
+         +-----------------------------------------------------------+
+
+         |
+         | 7. Users can also:
+         | - Create Shipment via Modal
+         | - Delete Shipment
+         v
++-------------------------------+
+| Logistica Shipment Datatable |
+| LWC: Create / Delete / Track |
++-------------------------------+
+
