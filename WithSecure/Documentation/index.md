@@ -133,7 +133,6 @@ This system spans two Salesforce developer orgs:
 - **Org A – Logistica (Logistics Management Centre)**
 - **Org B – Carrier Org (External Shipment Processor)**
 
-![Architecture Diagram](./assets/architecture-diagram.png) <!-- Include an actual diagram if available -->
 
 ---
 
