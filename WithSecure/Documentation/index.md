@@ -85,18 +85,18 @@ This trigger is part of a larger Salesforce application that manages shipment re
 - Platform event is used to track any change in shipment and the Logistica App is subscribe dto any changes(not specific to status)
 
 
-### Copy SogisticsApp folder to VS code for Org B
+### Copy LogisticsApp folder to VS code for Org B
+### Copy LogisticsApp folder to VS code for Org B
+### Copy ShipmentDispatchApp folder to VS code for Org B
 ### Pre Deployment steps:
 - Create a certificate in Org A called, "CarrierAPI" or upload the one in asset folder to Org A. If you have created one, download for using in the connected app in Org B
 In Org B create a system administrator user with username , withsecurelogisticaapp@testorg123.com. This user is needed in the connected app.
 Create a connected App, "LogisticaApp" in Org B. This app will be used for OAuth by Org B.
 Details steps will be added her for creating connected app.The connected app will use digital signatures and connect using certificate provided(or retrieved from Org A). Copy the consumer key. thi consumer key has to updated in the Org A named credential/External credential
 
-### Run the command
+### Run the command separately for Org A and Org B
   sf project deploy start --source-dir force-app
 
-- Copy LogisticsApp folder to VS code for Org A
-- Run the command
 - sf project deploy start --source-dir force-app
 
 ### Post deployment
