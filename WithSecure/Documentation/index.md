@@ -31,7 +31,7 @@ This class is responsible for scheduling the ShipmentStatusBatch to run periodic
 It implements the Schedulable interface and defines the execute method to run the batch. 
 The batch can be scheduled using a cron expression to run at specific intervals.
 
-### [ShipmentStatusBatch](shipment-management/ShipmentStatusBatch.md)
+### [ShipmentStatusBatch](shipmentdispatchapp/ShipmentStatusBatch.md)
 
 Batch class to manage shipment status updates to Dispatched or DIspatching in Org B
 
