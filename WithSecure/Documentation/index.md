@@ -1,6 +1,21 @@
 # Reference Guide
 
+## : LogisticsApp
+A Salesforce Lightning Web Component (LWC) that displays shipment requests in a dynamic, interactive table. Features include:
+
+- Region-based filtering
+- Live countdown timer for "In Review" shipments
+- EMP API subscription for real-time updates
+- Editable modal for updating shipment records
+- Dispatch functionality with validations
+- Record creation and deletion via modal
+- Lightning styling with SLDS
+
 ### [CarrierAPI](miscellaneous/CarrierAPI.md)
+CarrierAPI- This Apex REST service processes carrier dispatch shipment requests.&lt;br/&gt; 
+Accepts a single shipment request and creates or updates a DispatchCarrier__c record.&lt;br/&gt; 
+If the TrackingID starts with &#x27;123&#x27;, it simulates a processing delay for testing/debugging.
+
 
 ### [GetShipmentStatusAPI](miscellaneous/GetShipmentStatusAPI.md)
 
@@ -8,18 +23,12 @@
 
 ### [DispatchStatusUpdaterBatch](DispatchStatusUpdaterBatch.md)
 
-:
-
-## : LogisticsApp
-
 ### [ShipmentStatusBatchSchedule](logisticsapp/ShipmentStatusBatchSchedule.md)
 
 : 
 This class is responsible for scheduling the ShipmentStatusBatch to run periodically. 
 It implements the Schedulable interface and defines the execute method to run the batch. 
 The batch can be scheduled using a cron expression to run at specific intervals.
-
-## : Shipment Management
 
 ### [ShipmentStatusBatch](shipment-management/ShipmentStatusBatch.md)
 
