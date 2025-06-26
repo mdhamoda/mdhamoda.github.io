@@ -79,11 +79,19 @@ This trigger is part of a larger Salesforce application that manages shipment re
 - When a shipment is created its created with status 'Assigned to Agent' The Region is updated by a mapping based on Destination. The Owner is updated by a mapping based on Region.
 - When a shipment is opened by Logistica customer service, the shipment status is changed to in Review and is locked by that user. A server side validation prevents other users from updating this record.
 - After reviewing the shipment can be updated to Ready For Dispatch
-- With the help of Dispatch button, the shipment is sent to Org B as "Dispatch Carrier". The statu is updated as Dispatching in Org B and Org A. If the integration fails, the shipments is updated to Dispath failed for reprocessing
+- With the help of Dispatch button, the shipment is sent to Org B as "Dispatch Carrier". The status is updated as Dispatching in Org B and Org A. If the integration fails, the shipments is updated to Dispath failed for reprocessing
 - The status is updated asynchronously /randomly in Org B to Dispatched or Dispatch Failed.
 - A batch job in Org A queries/polls Org B for "Dispatching" records for a recent change in status
 - Additionally, a shipment can be created or deleted in Logistica App.
 - Platform event is used to track any change in shipment and the Logistica App is subscribe dto any changes(not specific to status)
+
+### Assumptions and Design decisions
+Org A has open sharing model. All Logista customer Service agants have read all and modify all permisssions. They can create edit and delete shipments.
+Org B has only administrator user accounts
+Region is limited to EMEA, APAC and US
+OAuth server flow is utilized for authentication
+The lWC does not include pagination/slicing due to time constraints.
+
 
 
 ### Copy LogisticsApp folder to VS code for Org B
@@ -209,16 +217,14 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 
 ## ✅ Testing Strategy
 
-- **93%+ code coverage** for Career Dispatch service
+- **93% / 100 % code coverage** 
 - **Unit Testing**:
   - Success and Failure test methods are included
 - **Tools Used**:
   - `HttpCalloutMock` is used to mimic respose data for Carrier API
   - `Test.startTest()` / `stopTest()`
-  - Platform Event mocking
-
+  - 93 percent for Shipment Dispatch service and rest has 100 percent coverage
 ---
-
 
 
 
@@ -227,7 +233,6 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 
 # 🔄 Integration Architecture: Salesforce Org A (Logistica) ↔ Org B (Dispatch Carriers)
 
-![SequenceDiagram](https://github.com/user-attachments/assets/67719782-65cc-4de1-819e-39864ffe2dc8)
 ![SequenceDiagram](https://github.com/user-attachments/assets/67719782-65cc-4de1-819e-39864ffe2dc8)
 
 
