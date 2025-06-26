@@ -227,6 +227,9 @@ A Lightning App providing agents with a real-time interface for managing shipmen
 
 # 🔄 Integration Architecture: Salesforce Org A (Logistica) ↔ Org B (Dispatch Carriers)
 
+
+-----------------------------------------------------------------------------------------------
+
 +-------------------+                        +-----------------------+
 |    Salesforce     |                        |     Salesforce        |
 |     Org A         |                        |       Org B           |
@@ -265,7 +268,6 @@ A Lightning App providing agents with a real-time interface for managing shipmen
          | [If integration fails: Status = Dispatch Failed] |
          |                                                  |
          v                                                  v
-
 +---------------------+    Asynchronous       +---------------------+
 | 5. Batch Job (Org A) | <-------------------  | 4. Status updates in  |
 | Polls Org B for     |                       | Org B:               |
