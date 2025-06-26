@@ -17,23 +17,20 @@ Accepts a single shipment request and creates or updates a DispatchCarrier__c re
 If the TrackingID starts with &#x27;123&#x27;, it simulates a processing delay for testing/debugging.
 
 
-### [GetShipmentStatusAPI](miscellaneous/GetShipmentStatusAPI.md)
-
-## :
-
 ### [DispatchStatusUpdaterBatch](DispatchStatusUpdaterBatch.md)
-Batch jon pdates Dispatch status by making an API call
+Batch job updates Dispatch status by making an API call from Org A
 
-### [ShipmentStatusBatchSchedule](logisticsapp/ShipmentStatusBatchSchedule.md)
-
-: 
-This class is responsible for scheduling the ShipmentStatusBatch to run periodically. 
-It implements the Schedulable interface and defines the execute method to run the batch. 
-The batch can be scheduled using a cron expression to run at specific intervals.
 
 ### [ShipmentStatusBatch](shipmentdispatchapp/ShipmentStatusBatch.md)
 
-Batch class to manage shipment status updates to Dispatched or DIspatching in Org B
+Batch class to manage recent shipment status updates to Dispatched or Dispatch falied by polling Org B
+
+### [ShipmentStatusBatchSchedule](logisticsapp/ShipmentStatusBatchSchedule.md)
+
+:
+This class is responsible for scheduling the ShipmentStatusBatch to run periodically. 
+It implements the Schedulable interface and defines the execute method to run the batch. 
+The batch can be scheduled using a cron expression to run at specific intervals.
 
 ## Custom Objects
 
