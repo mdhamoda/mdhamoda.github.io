@@ -22,6 +22,7 @@ If the TrackingID starts with &#x27;123&#x27;, it simulates a processing delay f
 ## :
 
 ### [DispatchStatusUpdaterBatch](DispatchStatusUpdaterBatch.md)
+Batch jon pdates Dispatch status by making an API call
 
 ### [ShipmentStatusBatchSchedule](logisticsapp/ShipmentStatusBatchSchedule.md)
 
@@ -32,7 +33,7 @@ The batch can be scheduled using a cron expression to run at specific intervals.
 
 ### [ShipmentStatusBatch](shipment-management/ShipmentStatusBatch.md)
 
-Batch class to manage shipment status updates
+Batch class to manage shipment status updates to Dispatched or DIspatching in Org B
 
 ## Custom Objects
 
