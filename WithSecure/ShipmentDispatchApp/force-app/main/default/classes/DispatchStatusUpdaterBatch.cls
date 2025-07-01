@@ -38,7 +38,7 @@ global class DispatchStatusUpdaterBatch implements Database.Batchable<SObject> {
 
     global void scheduleNextBatch() {
         String datetimeVal = DateTime.now().format('yyyyMMdd_HHmmss');
-        Integer intervalVal = 5;
+        Integer intervalVal = 10;
         if (!Test.isRunningTest()) {
             System.scheduleBatch(
                 new DispatchStatusUpdaterBatch(),
