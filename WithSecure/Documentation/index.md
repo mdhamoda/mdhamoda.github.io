@@ -118,21 +118,7 @@ As a admin in Org A
 
 As a admin in Org B
 Add custom admin permission to teh admin user.
-- schedule the batch job as new admin user(separte admin user is preferred to the integration user, for audtiting)
-String jobNamePrefix = 'DispatchStatusUpdaterSchedulerEvery5Min_';
-
-
-<pre> ```
-    for (Integer min : minutesList) {
-    try {
-        List<Integer> minutesList = new List<Integer>{0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55};
-        String cronExp = '0 ' + String.valueOf(min) + ' * * * ?';
-        String jobName = jobNamePrefix + String.valueOf(min);
-        System.schedule(jobName, cronExp, new DispatchStatusUpdaterScheduler());
-      } catch (Exception e) {
-        System.debug('Error scheduling for ' + min + ': ' + e.getMessage());
-      }}
-``` </pre>
+- schedule the batch job as new admin userfrom system Interface(separte admin user is preferred to the integration user, for audtiting)
 
 - Please schedule a batch job that updates shipment status to Dispatched or Dispatch failed fro Dispatch Carrier records
 ## 
