@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Manigandan Dhamodaran
  * @group             : 
- * @last modified on  : 06-26-2025
+ * @last modified on  : 07-01-2025
  * @last modified by  : Manigandan Dhamodaran
  *  * @group ShipmentDispatchApp
 **/
@@ -33,5 +33,18 @@ global class DispatchStatusUpdaterBatch implements Database.Batchable<SObject> {
 
     global void finish(Database.BatchableContext bc) {
         System.debug('DispatchStatusUpdaterBatch completed.');
+        scheduleNextBatch();
+    }
+
+    global void scheduleNextBatch() {
+        String datetimeVal = DateTime.now().format('yyyyMMdd_HHmmss');
+        Integer intervalVal = 5;
+        if (!Test.isRunningTest()) {
+            System.scheduleBatch(
+                new DispatchStatusUpdaterBatch(),
+                'DispatchStatusUpdaterBatch_' + DatetimeVal,
+                intervalVal
+            );
+        } 
     }
 }
