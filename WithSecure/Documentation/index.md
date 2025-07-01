@@ -123,7 +123,7 @@ String jobNamePrefix = 'DispatchStatusUpdaterSchedulerEvery5Min_';
 
 
 
-  for (Integer min : minutesList) {
+    for (Integer min : minutesList) {
     try {
         List<Integer> minutesList = new List<Integer>{0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55};
         String cronExp = '0 ' + String.valueOf(min) + ' * * * ?';
