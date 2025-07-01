@@ -130,8 +130,8 @@ for (Integer min : minutesList) {
         System.schedule(jobName, cronExp, new DispatchStatusUpdaterScheduler());
     } catch (Exception e) {
         System.debug('Error scheduling for ' + min + ': ' + e.getMessage());
-    }
-}
+    }}
+
 
 - Please schedule a batch job that updates shipment status to Dispatched or Dispatch failed fro Dispatch Carrier records
 ## 
