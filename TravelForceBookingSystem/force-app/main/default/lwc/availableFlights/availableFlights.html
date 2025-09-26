@@ -1,0 +1,108 @@
+<!--
+  @description       : 
+  @author            : Manigandan Dhamodaran
+  @group             : 
+  @last modified on  : 09-25-2025
+  @last modified by  : Manigandan Dhamodaran
+-->
+<template>
+    <lightning-card title="Trip Details & Available Flights">
+                <template if:false={showAvailableFlights}>
+                <!-- Trip Details -->
+        <div class="slds-p-around_medium">
+            <h2 class="slds-text-heading_small">Trip Details</h2>
+
+                    <div class="slds-grid slds-wrap slds-gutters_small slds-align_absolute-center">
+                <lightning-button 
+                    label="Cancel Trip" 
+                    variant="destructive" 
+                    onclick={handleCancelTrip}
+                    class="slds-m-top_small">
+                </lightning-button>
+                </div>
+                <lightning-record-view-form record-id={recordId} object-api-name="Trip__c">
+                    <lightning-output-field field-name="Name__c"></lightning-output-field>
+                    <lightning-output-field field-name="Contact__c"></lightning-output-field>
+                    <lightning-output-field field-name="Case__c"></lightning-output-field>
+                    <lightning-output-field field-name="Flight__c"></lightning-output-field>
+                    <lightning-output-field field-name="Status__c"></lightning-output-field>
+                    <lightning-output-field field-name="Ticket__c"></lightning-output-field>
+                    <lightning-output-field field-name="Preferred_Trip_Start__c"></lightning-output-field>
+                    <lightning-output-field field-name="ExternalSynSuccessful__c"></lightning-output-field>
+            </lightning-record-view-form>
+        </div>
+        </template>
+        
+
+        <hr class="slds-m-vertical_medium slds-divider"/>
+
+        <!-- Available Flights -->
+        <template if:true={showAvailableFlights}>
+            <div class="slds-p-around_medium">
+                    <lightning-record-view-form record-id={recordId} object-api-name="Trip__c">
+                    <lightning-output-field field-name="Name__c"></lightning-output-field>
+                    <lightning-output-field field-name="Contact__c"></lightning-output-field>
+                    <lightning-output-field field-name="Case__c"></lightning-output-field>
+                    <lightning-output-field field-name="Status__c"></lightning-output-field>
+                    <lightning-output-field field-name="Preferred_Trip_Start__c"></lightning-output-field>
+            </lightning-record-view-form>
+            </div>
+        <div class="slds-p-around_medium">
+            <h2 class="slds-text-heading_small">Available Flights</h2>
+            <template if:true={visibleFlights}>
+                
+                <template if:true={visibleFlights.length}>
+
+                    <!-- 3x3 Flight Boxes -->
+                    <div class="slds-grid slds-wrap slds-gutters_small">
+                        <template for:each={visibleFlights} for:item="flight">
+                            <div key={flight.idvalue} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                <div class="slds-box slds-theme_default slds-p-around_small slds-m-around_small slds-text-align_center">
+                                    <p class="slds-text-heading_small">{flight.flightName}</p>
+                                    <p><b>Start: </b> <lightning-formatted-date-time 
+                                        value={flight.start}
+                                        year="numeric"
+                                        month="2-digit"
+                                        day="2-digit"
+                                        hour="2-digit" 
+                                        minute="2-digit" 
+                                        hour12="true">
+                                    </lightning-formatted-date-time></p>
+                                    <p><b>Tickets Available:</b> {flight.availableTickets}</p>
+                                    <lightning-button 
+                                        label="Select Flight"
+                                        variant="brand"
+                                        data-id={flight.idvalue}
+                                        onclick={handleSelect}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="slds-m-around_small slds-text-align_center">
+                        <lightning-button 
+                            label="Previous" 
+                            onclick={handlePrev} 
+                            disabled={isPrevDisabled}>
+                        </lightning-button>
+                        <span class="slds-p-horizontal_small">
+                            Page {page} of {totalPages}
+                        </span>
+                        <lightning-button 
+                            label="Next" 
+                            onclick={handleNext} 
+                            disabled={isNextDisabled}>
+                        </lightning-button>
+                    </div>
+
+                </template>
+                <template if:false={visibleFlights.length}>
+                    <p>No available flights for this Trip date or flight has been booked already.</p>
+                </template>
+            </template>
+        </div>
+        </template>
+    </lightning-card>
+</template>
