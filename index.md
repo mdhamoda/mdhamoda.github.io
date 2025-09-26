@@ -2,4 +2,4 @@
 
 
 ### Apex class DOcumentation
-Apex classes(\TravelForceBookingSystem\apex-documentation\TicketBookingCallout.html)
+[Apex classes](\TravelForceBookingSystem\apex-documentation\TicketBookingCallout.html)
