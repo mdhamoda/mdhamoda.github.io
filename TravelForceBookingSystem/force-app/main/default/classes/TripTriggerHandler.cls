@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Manigandan Dhamodaran
  * @group             : 
- * @last modified on  : 09-26-2025
+ * @last modified on  : 09-29-2025
  * @last modified by  : Manigandan Dhamodaran
 **/
 public with sharing class TripTriggerHandler extends TriggerHandler {
@@ -25,7 +25,10 @@ public with sharing class TripTriggerHandler extends TriggerHandler {
                 return;
             }
             // Call BookingCalloutHandler
-            BookingCalloutHandler bookingHandler = new BookingCalloutHandler();
-            bookingHandler.processTrips(oldTripMap,newTripMap);
+            if(Trigger.new.size() == 1){
+                // To avoid hitting future method limit with Callout. So only one record is processed in one transaction.
+                BookingCalloutHandler bookingHandler = new BookingCalloutHandler();
+                bookingHandler.processTrips(oldTripMap,newTripMap);
+            }
     }
 }
