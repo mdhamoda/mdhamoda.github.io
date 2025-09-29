@@ -23,6 +23,7 @@ public with sharing class BookingCalloutHandler {
         }
 
         if (!tripsToSync.isEmpty()) {
+            //For now future method is used, in real time scenario batch or queable can be used to handle large data volume
             sendTripBookingToAPI(tripsToSync);
         }
     }
