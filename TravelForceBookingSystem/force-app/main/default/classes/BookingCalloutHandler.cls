@@ -62,7 +62,7 @@ public with sharing class BookingCalloutHandler {
         }
 
         if (!tripsToSync.isEmpty()) {
-            if(Test.isRunningTest()){
+            if(!Test.isRunningTest()){
                 // In test context, perform a DML operation to simulate update
                 update tripsToSync;
             } else {
