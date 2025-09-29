@@ -34,7 +34,7 @@ public with sharing class BookingCalloutHandler {
         List<Trip__c> tripsToSync = [
             SELECT Id, Ticket__r.Name	, Contact__r.Name, ExternalSynSuccessful__c
             FROM Trip__c
-            WHERE Id IN :tripIds WITH SECURITY_ENFORCED
+            WHERE Id IN :tripIds WITH SECURITY_ENFORCED LIMIT 50
         ];
 
         for (Trip__c trip : tripsToSync) {
@@ -45,7 +45,7 @@ public with sharing class BookingCalloutHandler {
                 };
 
                 String requestBody = JSON.serialize(payload);
-
+                //use Limit.getLimitFutureCalls();
                 TicketBookingCallout callout = new TicketBookingCallout();
                 TicketBookingCallout.BookingResult result = callout.bookTicket(requestBody);
 
